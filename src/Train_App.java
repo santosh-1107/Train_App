@@ -1,32 +1,32 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Train_App {
 
     public static void main(String[] args) {
+        // Welcome message
+        System.out.println("=== Train Consist Management App ===");
+        System.out.println("UC6: Map Bogie to Capacity (HashMap)");
 
-        System.out.println("======================================");
-        System.out.println(" UC5 - Preserve Insertion Order of Bogies ");
-        System.out.println("======================================\n");
+        // Step 1: Create HashMap
+        HashMap<String, Integer> bogieCapacityMap = new HashMap<>();
 
-        // LinkedHashSet preserves insertion order and ensures uniqueness
-        Set<String> formation = new LinkedHashSet<>();
+        // Step 2: Insert bogie and capacity
+        bogieCapacityMap.put("Sleeper", 72);
+        bogieCapacityMap.put("AC Chair", 60);
+        bogieCapacityMap.put("First Class", 40);
+        bogieCapacityMap.put("Goods Rectangular", 100);
+        bogieCapacityMap.put("Goods Cylindrical", 80);
 
-        // Attaching bogies in order
-        formation.add("Engine");
-        formation.add("Sleeper");
-        formation.add("Cargo");
-        formation.add("Guard");
+        // Step 3: Display bogie capacity using entrySet()
+        System.out.println("\nBogie Capacity Details:");
 
-        // Attempt to add duplicate bogie
-        formation.add("Sleeper");  // This will be ignored
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            System.out.println("Bogie: " + entry.getKey() +
+                    " | Capacity: " + entry.getValue());
+        }
 
-        // Display final train formation
-        System.out.println("Final Train Formation:");
-        System.out.println(formation);
-
-        System.out.println("\nNote:");
-        System.out.println("LinkedHashSet preserves insertion order and removes duplicates automatically.");
-
-        System.out.println("\nUC5 formation setup completed...");
+        // Program continues
+        System.out.println("\nProgram continues...");
     }
 }
