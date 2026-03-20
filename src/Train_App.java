@@ -5,20 +5,37 @@ public class Train_App {
 
     public static void main(String[] args) {
 
-        // Welcome Message
-        System.out.println("===================================");
-        System.out.println("=== Train Consist Management App ===");
-        System.out.println("===================================");
+        System.out.println("=======================================");
+        System.out.println("UC2 - Add Passenger Bogies to Train");
+        System.out.println("=======================================\n");
 
-        // Initialize empty train consist
-        List<String> trainConsist = new ArrayList<>();
+        // Create ArrayList for passenger bogies
+        List<String> passengerBogies = new ArrayList<>();
 
-        // Display initial state
-        System.out.println("\nTrain initialized successfully...");
-        System.out.println("Initial Bogie Count : " + trainConsist.size());
-        System.out.println("Current Train Consist : " + trainConsist);
+        // Adding bogies
+        passengerBogies.add("Sleeper");
+        passengerBogies.add("AC Chair");
+        passengerBogies.add("First Class");
 
-        // System ready message
-        System.out.println("\nSystem ready for operations...");
+        // Display after adding
+        System.out.println("After Adding Bogies:");
+        System.out.println("Passenger Bogies : " + passengerBogies + "\n");
+
+        // Remove a bogie
+        passengerBogies.remove("AC Chair");
+
+        // Display after removing
+        System.out.println("After Removing 'AC Chair':");
+        System.out.println("Passenger Bogies : " + passengerBogies + "\n");
+
+        // Check if Sleeper exists
+        System.out.println("Checking if 'Sleeper' exists:");
+        System.out.println("Contains Sleeper? : " + passengerBogies.contains("Sleeper") + "\n");
+
+        // Final list
+        System.out.println("Final Train Passenger Consist:");
+        System.out.println(passengerBogies + "\n");
+
+        System.out.println("UC2 operations completed successfully...");
     }
 }
