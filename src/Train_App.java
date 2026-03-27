@@ -1,63 +1,51 @@
-import java.util.*;
-import java.util.stream.Collectors;
-
-
+class InvalidCapacityException extends Exception {
+    public InvalidCapacityException(String message) {
+        super(message);
+    }
+}
 public class Train_App {
-    static class Bogie {
+    static class PassengerBogie {
         String type;
         int capacity;
 
-        Bogie(String type, int capacity) {
+        PassengerBogie(String type, int capacity) throws InvalidCapacityException {
+            if (capacity <= 0) {
+                // Rule: Capacity must be greater than zero
+                throw new InvalidCapacityException("Capacity must be greater than zero");
+            }
             this.type = type;
             this.capacity = capacity;
         }
-
-        @Override
-        public String toString() {
-            return type + " (Capacity: " + capacity + ")";
-        }
     }
     public static void main(String[] args) {
+        System.out.println("=====================================================");
+        System.out.println(" UC14 - Handle Invalid Bogie Capacity ");
+        System.out.println("=====================================================");
 
-        System.out.println(" =============================================== ");
-        System.out.println(" UC13 - Performance Comparison (Loops vs Streams) ");
-        System.out.println(" =============================================== \n");
+        try {
+            // Attempting to create a valid bogie
+            System.out.println("Creating Sleeper bogie with 72 seats...");
+            PassengerBogie validBogie = new PassengerBogie("Sleeper", 72);
+            System.out.println("Successfully created: " + validBogie.type);
 
-        // Create large test dataset
-        List<Bogie> bogies = new ArrayList<>();
-        for (int i = 0; i < 100000; i++) {
-            bogies.add(new Bogie("Passenger-" + i, (i % 100) + 1));
+            // Attempting to create an invalid bogie (Zero Capacity)
+            System.out.println("\nCreating AC Chair bogie with 0 seats...");
+            PassengerBogie invalidBogie = new PassengerBogie("AC Chair", 0);
+
+        } catch (InvalidCapacityException e) {
+            // Catching and displaying the custom error message
+            System.err.println("Error: " + e.getMessage());
         }
 
-        // Loop-based filtering
-        long startLoop = System.nanoTime();
-        List<Bogie> loopFiltered = new ArrayList<>();
-        for (Bogie b : bogies) {
-            if (b.capacity > 60) {
-                loopFiltered.add(b);
-            }
+        try {
+            // Attempting to create an invalid bogie (Negative Capacity)
+            System.out.println("\nCreating First Class bogie with -10 seats...");
+            PassengerBogie negativeBogie = new PassengerBogie("First Class", -10);
+
+        } catch (InvalidCapacityException e) {
+            System.err.println("Error: " + e.getMessage());
         }
-        long endLoop = System.nanoTime();
-        long loopDuration = endLoop - startLoop;
 
-        // Stream-based filtering
-        long startStream = System.nanoTime();
-        List<Bogie> streamFiltered = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
-        long endStream = System.nanoTime();
-        long streamDuration = endStream - startStream;
-
-        // Display results
-        System.out.println("Loop Execution Time (ns): " + loopDuration);
-        System.out.println("Stream Execution Time (ns): " + streamDuration);
-        System.out.println("UC13 performance benchmarking completed ...");
-
-        // Consistency check
-        if (loopFiltered.size() == streamFiltered.size()) {
-            System.out.println("Both approaches produced identical results.");
-        } else {
-            System.out.println("Mismatch detected between loop and stream results!");
-        }
+        System.out.println("\nUC14 exception handling completed...");
     }
 }
