@@ -1,45 +1,47 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Train_App {
-    static class Bogie {
-        String name;
-        int capacity;
-
-        Bogie(String name, int capacity) {
-            this.name = name;
-            this.capacity = capacity;
-        }
-    }
-
     public static void main(String[] args) {
 
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("=====================================================");
-        System.out.println(" UC10 - Count Total Seats in Train ");
+        System.out.println(" UC11 - Validate Train ID and Cargo Code ");
         System.out.println("=====================================================");
 
-        // 1. Create a list of bogies
-        List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 56));
-        bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("Sleeper", 70));
+        // Accept input from the user [cite: 184, 185]
+        System.out.print("Enter Train ID (Format: TRN-1234): ");
+        String trainId = scanner.nextLine();
 
-        // Display bogies in the train
-        System.out.println("Bogies in Train:");
-        for (Bogie b : bogies) {
-            System.out.println(b.name + " -> " + b.capacity);
-        }
+        System.out.print("Enter Cargo Code (Format: PET-AB): ");
+        String cargoCode = scanner.nextLine();
 
-        // 2. Convert list to stream
-        // 3. map() extracts capacity values
-        // 4. reduce() sums the capacities
-        int totalSeatingCapacity = bogies.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
+        // DEFINE REGEX RULES [cite: 204, 221, 222]
+        // TRN- followed by exactly 4 digits
+        String trainIdRegex = "TRN-\\d{4}";
+        // PET- followed by exactly 2 uppercase letters
+        String cargoCodeRegex = "PET-[A-Z]{2}";
 
-        // 5. Total seating capacity is displayed
-        System.out.println("\nTotal Seating Capacity of Train: " + totalSeatingCapacity);
+        // Apply regex validation using Pattern and Matcher [cite: 186, 208, 209]
+        Pattern trainIdPattern = Pattern.compile(trainIdRegex);
+        Matcher trainIdMatcher = trainIdPattern.matcher(trainId);
 
-        System.out.println("\nUC10 aggregation completed...");
+        Pattern cargoCodePattern = Pattern.compile(cargoCodeRegex);
+        Matcher cargoCodeMatcher = cargoCodePattern.matcher(cargoCode);
+
+        // Validate using matches() for exact pattern matching [cite: 217, 224]
+        boolean isTrainIdValid = trainIdMatcher.matches();
+        boolean isCargoCodeValid = cargoCodeMatcher.matches();
+
+        // Display validation results [cite: 187, 225]
+        System.out.println("\nValidation Results:");
+        System.out.println("Train ID Valid: " + isTrainIdValid);
+        System.out.println("Cargo Code Valid: " + isCargoCodeValid);
+
+        System.out.println("\nUC11 validation completed...");
+
+        scanner.close();
     }
 }
