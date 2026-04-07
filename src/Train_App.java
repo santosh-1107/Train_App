@@ -1,31 +1,42 @@
-import java.util.Arrays;
 public class Train_App {
     public static void main(String[] args) {
 
-        System.out.println("===============================================");
-        System.out.println(" UC17 - Sort Bogie Names using Arrays.sort() ");
-        System.out.println("===============================================\n");
+        System.out.println("====================================");
+        System.out.println("UC18 - Linear Search for Bogie ID");
+        System.out.println("====================================\n");
 
-        // Array of bogie names
-        String[] bogieNames = {
-                "Sleeper",
-                "AC Chair",
-                "First Class",
-                "General",
-                "Luxury"
-        };
+        // Array of Bogie IDs
+        String[] bogieIDs = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        // Display original array
-        System.out.println("Original Bogie Names:");
-        System.out.println(Arrays.toString(bogieNames));
+        System.out.println("Available Bogie IDs:\n");
 
-        // Sorting using built-in method
-        Arrays.sort(bogieNames);
+        // Display all bogie IDs
+        for (String id : bogieIDs) {
+            System.out.println(id);
+        }
 
-        // Display sorted array
-        System.out.println("\nSorted Bogie Names (Alphabetical):");
-        System.out.println(Arrays.toString(bogieNames));
+        System.out.println();
 
-        System.out.println("\nUC17 sorting completed...");
+        // Search key
+        String searchKey = "BG309";
+
+        boolean found = false;
+
+        // Linear Search
+        for (String id : bogieIDs) {
+            if (id.equals(searchKey)) {
+                found = true;
+                break;
+            }
+        }
+
+        // Result
+        if (found) {
+            System.out.println("Bogie " + searchKey + " found in train consist.");
+        } else {
+            System.out.println("Bogie " + searchKey + " not found in train consist.");
+        }
+
+        System.out.println("\nUC18 search completed...");
     }
 }
